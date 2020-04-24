@@ -1,0 +1,349 @@
+<Manager>:
+    id: sm
+    canvas.before:
+        Color:
+            rgba: 253/255,246/255,228/255,1
+            # rgba: 0,0,0,1
+        Rectangle:
+            size:  self.size
+            pos: self.pos
+
+    Home:
+    Card:
+    WordInput:
+
+
+<Home>:
+    name: 'Home'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '30sp'
+        Label:
+            text: 'Activity game'
+            size_hint_y: 0.1
+            font_size: '25sp'
+            bold: True
+            color: 1,1,1,1
+            canvas.before:
+                Color:
+                    rgba: 0.4,0,0,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        BoxLayout:
+            padding: (self.size[0]/10,0,self.size[0]/10,0)
+            spacing: '30sp'
+            orientation: 'vertical'
+            size_hint_y: 0.9
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: '30sp'
+                size_hint_y: 0.3
+                Label:
+                    # canvas.before:
+                    #     Color:
+                    #         rgba: 0.4,0,0,1
+                    #     RoundedRectangle:
+                    #         size: self.size
+                    #         pos: self.pos
+                    #         radius: [20]
+                    Image:
+                        source:'pencil64.png'
+                        center: self.parent.center
+                Label:
+                    Image:
+                        source:'mouth64.png'
+                        center: self.parent.center
+                Label:
+                    Image:
+                        source:'show64.png'
+                        center: self.parent.center
+
+            Button:
+                text: 'Play'
+                background_color: 0,0,0,0
+                bold: True
+                font_size: '20sp'
+                size_hint_y: 0.4
+                color: 1,1,1,1
+                canvas.before:
+                    Color:
+                        rgba: 0.4,0,0,1
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [12]
+                on_release:
+                    root.manager.current = 'Card'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.4
+                spacing: '10sp'
+                ToggleButton:
+                    text: 'English'
+                    group: 'lang'
+                    bold: True
+
+                    background_color: 0,0,0.4,0
+                    canvas.before:
+                        Color:
+                            rgba: (0,0,0.4,0.6) if self.state == "normal" else (0,0,0.4,1)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [12]
+                    on_press:
+                        print(root.manager.get_screen('Card').lang)
+                        root.manager.get_screen('Card').lang = 2
+                        print(root.manager.get_screen('Card').lang)
+                ToggleButton
+                    text: 'Magyar'
+                    bold: True
+                    group: 'lang'
+                    state: 'down'
+                    on_press:
+                        print(root.manager.get_screen('Card').lang)
+                        root.manager.get_screen('Card').lang = 1
+                        print(root.manager.get_screen('Card').lang)
+                    background_color: 0,0,0,0
+                    # background_down: 0.4,0,0,1
+                    canvas.before:
+                        Color:
+                            rgba: (0.4,0,0,0.6) if self.state == "normal" else (0.4,0,0,1)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [12]
+            Label:
+                text: ''
+
+
+<Card>:
+    name: 'Card'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '30sp'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.1
+            canvas.before:
+                Color:
+                    rgba: 0.4,0,0,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            MDIconButton:
+                icon: 'keyboard-backspace'
+                # size_hint_y: None
+
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1
+                valign: 'middle'
+                # md_bg_color: 0, 0.4, 0, 1
+                on_release:
+                    # root.manager.transition = 'left'
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'Home'
+
+            Label:
+                text: 'Play'
+                # size_hint_y: 0.3
+                font_size: '25sp'
+                bold: True
+                # valign: 'middle'
+                color: 1,1,1,1
+            MDIconButton:
+                icon: 'plus'
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1
+                valign: 'middle'
+                on_release:
+                    root.add()
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: '20sp'
+            padding: (self.size[0]/10,0,self.size[0]/10,0)
+            size_hint_y: 0.9
+
+            BoxLayout:
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba: root.back
+                    Line:
+                        rounded_rectangle: (self.pos[0], self.pos[1], self.size[0], self.size[1], 12)
+                        width: 5
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: [0,0,0,self.size[1]/10]
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1
+
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [12]
+
+                    Widget:
+                        size_hint_y: 0.2
+
+                    Label:
+                        size_hint_y: 0.2
+                        id: word
+                        bold: True
+                        font_size: '25sp'
+                        color: 1,1,1,1                      
+                        canvas.before:
+                            Color:
+                                rgba: root.back
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                                # radius: [12,12,12,12]
+
+                    Label:
+                        size_hint_y: 0.3
+
+                        Image:
+                            id: img
+                            source: root.i
+                            center: self.parent.center
+
+
+            Button:
+                text: 'Draw'
+                size_hint_y: 0.1
+                background_color: 0,0,0,0
+                font_size: '15sp'
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0.4,1
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [12]
+                on_release:
+                    # root.manager.current = 'Home'
+                    root.drawCard()
+            Label:
+                text:''
+                size_hint_y: 0.1
+
+<Pop>:
+    title: ''
+    separator_height: 0
+    id: pop
+    BoxLayout:
+        orientation: 'vertical'
+        # spacing: '20sp'
+        # padding: (self.size[0]/4,self.size[1]/4,self.size[0]/4,self.size[1]/4)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: 0.1
+            canvas.before:
+                Color:
+                    rgba: 0.4,0,0,1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [12,12,0,0]
+            MDIconButton:
+                icon: 'keyboard-backspace'
+                # background: 1,1,1,1
+                theme_text_color: "Custom"
+                text_color: 1,1,1,1
+                on_release:
+                    pop.dismiss()
+            Label:
+                text: 'Add a word'
+                color: 1,1,1,1
+                bold: True
+                font_size: '25sp'
+
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: '30sp'
+            padding: (self.size[0]/10,0,self.size[0]/10,0)
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [0,0,12,12]
+            Widget:
+                size_hint_y: 0.1
+            MDTextField:
+                id: new
+                size_hint_y: 0.3
+                hint_text: "New word.."
+                # text: ''
+                color_mode: "custom"
+                current_hint_text_color: 0.4,0,0,1
+                line_color_normal: 0.4,0,0,1
+                line_color_focus: 0.4,0,0,1
+                multiline: False
+                on_text_validate:
+                    root.caller.addWord(self.text)
+                    self.text = ''
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.4
+                ToggleButton:
+                    text: 'English'
+                    group: 'lang'
+                    bold: True
+                    background_color: 0,0,0,0
+                    canvas.before:
+                        Color:
+                            rgba: (0,0,0.4,0.6) if self.state == "normal" else (0,0,0.4,1)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [12]
+                    on_press:
+                        print(root.caller.lang)
+                        root.caller.lang = 2
+                        print(root.caller.lang)
+                ToggleButton
+                    text: 'Magyar'
+                    bold: True
+                    group: 'lang'
+                    state: 'down'
+                    background_color: 0,0,0,0
+                    canvas.before:
+                        Color:
+                            rgba: (0.4,0,0,0.6) if self.state == "normal" else (0.4,0,0,1)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius: [12]
+                    on_press:
+                        print(root.caller.lang)
+                        root.caller.lang = 1
+                        print(root.caller.lang)
+            Button:
+                text: 'Add'
+                size_hint_y: 0.3
+                background_color: 0,0,0,0
+                font_size: '15sp'
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0.4,1
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [12]
+                on_release:
+                    # root.manager.current = 'Home'
+                    root.caller.addWord(new.text)
+                    new.text = ''
+            Widget:
+                size_hint_y: 0.2
