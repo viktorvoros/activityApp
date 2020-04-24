@@ -32,27 +32,21 @@
                     pos: self.pos
         BoxLayout:
             padding: (self.size[0]/10,0,self.size[0]/10,0)
-            spacing: '30sp'
+            spacing: '40sp'
             orientation: 'vertical'
             size_hint_y: 0.9
+
             BoxLayout:
                 orientation: 'horizontal'
                 spacing: '30sp'
-                size_hint_y: 0.3
+                # size_hint_y: 0.3
                 Label:
-                    # canvas.before:
-                    #     Color:
-                    #         rgba: 0.4,0,0,1
-                    #     RoundedRectangle:
-                    #         size: self.size
-                    #         pos: self.pos
-                    #         radius: [20]
                     Image:
-                        source:'pencil64.png'
+                        source:'pencil_col_64.png'
                         center: self.parent.center
                 Label:
                     Image:
-                        source:'mouth64.png'
+                        source:'mouth_col_64.png'
                         center: self.parent.center
                 Label:
                     Image:
@@ -196,7 +190,7 @@
                         id: word
                         bold: True
                         font_size: '25sp'
-                        color: 1,1,1,1                      
+                        color: 1,1,1,1
                         canvas.before:
                             Color:
                                 rgba: root.back
@@ -294,7 +288,8 @@
                     self.text = ''
             BoxLayout:
                 orientation: 'horizontal'
-                size_hint_y: 0.4
+                size_hint_y: 0.2
+                spacing: '10sp'
                 ToggleButton:
                     text: 'English'
                     group: 'lang'
@@ -330,7 +325,7 @@
                         print(root.caller.lang)
             Button:
                 text: 'Add'
-                size_hint_y: 0.3
+                size_hint_y: 0.2
                 background_color: 0,0,0,0
                 font_size: '15sp'
                 bold: True
@@ -346,4 +341,4 @@
                     root.caller.addWord(new.text)
                     new.text = ''
             Widget:
-                size_hint_y: 0.2
+                # size_hint_y: 0.2

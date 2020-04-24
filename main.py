@@ -40,7 +40,7 @@ class Pop(Popup):
 class Card(Screen):
     def __init__(self, **kwargs):
         super(Card, self).__init__(**kwargs)
-        self.icons = ['pencil.png','mouth.png','show.png']
+        self.icons = ['pencil_col.png','mouth_col.png','show.png']
         self.i = ''
         self.lang = 1
         self.back = (0.4,0,0,1)
